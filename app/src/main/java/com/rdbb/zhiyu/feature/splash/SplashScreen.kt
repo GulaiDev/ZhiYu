@@ -1,67 +1,63 @@
 package com.rdbb.zhiyu.feature.splash
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.dropShadow
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.shadow.Shadow
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.rdbb.zhiyu.core.ui.theme.ZhiYuTheme
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.rdbb.zhiyu.core.ui.theme.BrandBrush
+import com.rdbb.zhiyu.core.ui.theme.CardWhite
+import com.rdbb.zhiyu.core.ui.theme.Ink
+import com.rdbb.zhiyu.core.ui.theme.Ink3
+import com.rdbb.zhiyu.core.ui.theme.Paper
+import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen() {
-    Column(
-        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text(
-            text = "知",
-            color = Color.White,
-            fontSize = 30.sp,
-            modifier = Modifier
-                .dropShadow(
-                    shape = RoundedCornerShape(20.dp),
-                    shadow = Shadow(
-                        radius = 16.dp,                 // 模糊半径
-                        color = Color(0x33F5462E),
-                        offset = DpOffset(x = 0.dp, y = 6.dp), // x/y偏移
-                        spread = 0.dp                   // 扩散大小
-                    )
-                )
-                .clip(RoundedCornerShape(20.dp))
-                .background(MaterialTheme.colorScheme.primary)
-                .padding(horizontal = 20.dp, vertical = 12.dp)
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "知遇，让我们遇见美好",
-            color = MaterialTheme.colorScheme.tertiary,
-            fontSize = 16.sp,
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp)
-        )
+fun SplashScreen(
+    onLoggedIn: () -> Unit,
+    onLoggedOut: () -> Unit,
+    viewModel: SplashViewModel = hiltViewModel()
+) {
+    LaunchedEffect(Unit) {
+        viewModel.session.restore()
+        delay(600)
+        if (viewModel.session.isLoggedIn) onLoggedIn() else onLoggedOut()
     }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun SplashScreenPreview() {
-    ZhiYuTheme {
-        SplashScreen()
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Paper),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Box(
+                modifier = Modifier
+                    .size(72.dp)
+                    .clip(RoundedCornerShape(22.dp))
+                    .background(Brush.linearGradient(BrandBrush)),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("知", color = CardWhite, fontSize = 34.sp, fontWeight = FontWeight.ExtraBold)
+            }
+            Spacer(Modifier.height(14.dp))
+            Text("知遇", color = Ink, fontSize = 20.sp, fontWeight = FontWeight.ExtraBold)
+            Spacer(Modifier.height(6.dp))
+            Text("记录校园生活，遇见同频的人", color = Ink3, fontSize = 12.sp)
+        }
     }
 }
