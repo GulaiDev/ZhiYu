@@ -1,6 +1,5 @@
 package com.rdbb.zhiyu.core.network.api
 
-import android.app.Notification
 import com.rdbb.zhiyu.core.model.ApiResponse
 import com.rdbb.zhiyu.core.model.CommentCreateRequest
 import com.rdbb.zhiyu.core.model.CommentLikeResult
@@ -20,8 +19,9 @@ import com.rdbb.zhiyu.core.model.UploadResult
 import com.rdbb.zhiyu.core.model.UserBrief
 import com.rdbb.zhiyu.core.model.UserDetail
 import com.rdbb.zhiyu.core.model.UserUpdateRequest
+import com.rdbb.zhiyu.core.model.Notification
+import com.rdbb.zhiyu.core.model.Comment
 import okhttp3.MultipartBody
-import org.w3c.dom.Comment
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET

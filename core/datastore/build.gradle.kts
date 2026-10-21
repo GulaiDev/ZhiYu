@@ -22,10 +22,13 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:model"))
     // 依赖注入
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     // DataStore Preferences存储键值对
     implementation(libs.androidx.datastore.preferences)
+    // 用户信息缓存序列化
+    implementation(libs.kotlinx.serialization.json)
     testImplementation(libs.junit)
 }

@@ -1,0 +1,51 @@
+package com.rdbb.zhiyu.core.data.repository
+
+import com.rdbb.zhiyu.core.datastore.UserManager
+import com.rdbb.zhiyu.core.model.LoginRequest
+import com.rdbb.zhiyu.core.model.RegisterRequest
+import com.rdbb.zhiyu.core.model.UserBrief
+import com.rdbb.zhiyu.core.model.UserDetail
+import com.rdbb.zhiyu.core.network.api.ApiService
+import com.rdbb.zhiyu.core.network.api.AuthApiService
+import kotlinx.serialization.json.Json
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class AuthRepository @Inject constructor(
+    private val authApi: AuthApiService,
+    private val api: ApiService,
+    private val userManager: UserManager,
+    json: Json
+) : BaseRepository(json) {
+
+    suspend fun login(username: String, password: String): Result<UserBrief> {
+        val result = safeCall { authApi.login(LoginRequest(username.trim(), password)) }
+        result.getOrNull()?.let {
+            userManager.saveLogin(it.accessToken, it.refreshToken, it.user)
+            return Result.success(it.user)
+        }
+        return Result.failure(result.exceptionOrNull() ?: IllegalStateException("登录失败"))
+    }
+
+    suspend fun register(username: String, password: String, nickname: String?): Result<UserBrief> {
+        val result = safeCall {
+            authApi.register(
+                RegisterRequest(
+                    username = username.trim(),
+                    password = password,
+                    nickname = nickname?.trim()?.ifBlank { null }
+                )
+            )
+        }
+        result.getOrNull()?.let {
+            userManager.saveLogin(it.accessToken, it.refreshToken, it.user)
+            return Result.success(it.user)
+        }
+        return Result.failure(result.exceptionOrNull() ?: IllegalStateException("注册失败"))
+    }
+
+    suspend fun me(): Result<UserDetail> = safeCall { api.me() }
+
+    suspend fun logout() = userManager.logout()
+}
