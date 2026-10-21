@@ -62,6 +62,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:ui"))
+
     // viewmodel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
@@ -89,6 +91,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+    // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)

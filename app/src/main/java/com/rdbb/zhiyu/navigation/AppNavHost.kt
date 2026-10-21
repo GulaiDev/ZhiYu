@@ -5,7 +5,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.rdbb.zhiyu.feature.splash.SplashScreen
 
 @Composable
 fun AppNavHost(
@@ -18,7 +17,7 @@ fun AppNavHost(
         startDestination = Screen.Splash.route
     ) {
         composable(Screen.Splash.route) {
-            SplashScreen()
+//            SplashScreen()
         }
     }
 }
