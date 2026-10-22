@@ -1,4 +1,4 @@
-package com.rdbb.zhiyu.coreutil
+package com.rdbb.zhiyu.core.util
 
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -9,7 +9,7 @@ import java.util.TimeZone
 fun String.absoluteUrl(): String {
     if (isBlank()) return this
     if (startsWith("http://") || startsWith("https://")) return this
-    val host = "http://192.168.5.10:8000/"
+    val host = BackendConfig.base()
     return host + if (startsWith("/")) this else "/$this"
 }
 

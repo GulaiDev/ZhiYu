@@ -41,6 +41,12 @@ dependencies {
     // 网络图片加载
     implementation(libs.coil.compose)
 
+    // MultipartBody / RequestBody（发帖上传图片）
+    implementation(libs.okhttp)
+
+    // 系统图片选择器
+    implementation(libs.androidx.activity.compose)
+
     implementation(libs.androidx.core.ktx)
 
     // Compose

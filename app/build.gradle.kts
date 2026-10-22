@@ -63,6 +63,21 @@ android {
 
 dependencies {
     implementation(project(":core:ui"))
+    implementation(project(":core:data"))
+    implementation(project(":core:model"))
+    implementation(project(":core:util"))
+
+    // 业务模块
+    implementation(project(":feature:splash"))
+    implementation(project(":feature:auth"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:community"))
+    implementation(project(":feature:notification"))
+    implementation(project(":feature:mine"))
+    implementation(project(":feature:post"))
+    implementation(project(":feature:search"))
+    implementation(project(":feature:user"))
+    implementation(project(":feature:compose"))
 
     // viewmodel
     implementation(libs.androidx.lifecycle.viewmodel.compose)

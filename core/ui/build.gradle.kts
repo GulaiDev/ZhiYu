@@ -22,8 +22,16 @@ android {
 }
 
 dependencies {
+    // 领域模型（FeedCard/CommunityIcon 等业务组件需要）
+    implementation(project(":core:model"))
+    // 格式化工具（时间、计数、头像首字等）
+    implementation(project(":core:util"))
+
     // 网络图片加载
     implementation(libs.coil.compose)
+
+    // 图片上传 multipart 工具
+    implementation(libs.okhttp)
     // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)

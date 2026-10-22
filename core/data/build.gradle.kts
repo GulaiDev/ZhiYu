@@ -23,9 +23,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:datastore"))
-    implementation(project(":core:network"))
-    implementation(project(":core:model"))
+    // 仓库的公开签名暴露了这些模块的类型（SessionManager/ApiService/领域模型），需用 api 传递
+    api(project(":core:datastore"))
+    api(project(":core:network"))
+    api(project(":core:model"))
 
     // DataStore Preferences存储键值对
     implementation(libs.androidx.datastore.preferences)

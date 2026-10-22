@@ -1,5 +1,6 @@
 package com.rdbb.zhiyu.core.data.repository
 
+import com.rdbb.zhiyu.core.data.SessionManager
 import com.rdbb.zhiyu.core.model.Notification
 import com.rdbb.zhiyu.core.network.api.ApiService
 import kotlinx.serialization.json.Json
@@ -9,8 +10,9 @@ import javax.inject.Singleton
 @Singleton
 class NotificationRepository @Inject constructor(
     private val api: ApiService,
+    private val session: SessionManager,
     json: Json
-) : BaseRepository(json) {
+) : BaseRepository(session, json) {
 
     suspend fun all(): Result<List<Notification>> =
         safeCall { api.notifications(pageSize = 50) }.mapCatching { it.items }

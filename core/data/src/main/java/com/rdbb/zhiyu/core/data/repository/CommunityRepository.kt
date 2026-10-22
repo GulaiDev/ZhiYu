@@ -1,5 +1,6 @@
 package com.rdbb.zhiyu.core.data.repository
 
+import com.rdbb.zhiyu.core.data.SessionManager
 import com.rdbb.zhiyu.core.model.Community
 import com.rdbb.zhiyu.core.model.PageData
 import com.rdbb.zhiyu.core.model.Post
@@ -11,8 +12,9 @@ import javax.inject.Singleton
 @Singleton
 class CommunityRepository @Inject constructor(
     private val api: ApiService,
+    private val session: SessionManager,
     json: Json
-) : BaseRepository(json) {
+) : BaseRepository(session, json) {
 
     suspend fun list(q: String? = null): Result<List<Community>> = safeCall {
         api.communities(q?.trim()?.ifBlank { null })

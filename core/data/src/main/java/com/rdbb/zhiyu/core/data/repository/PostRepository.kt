@@ -1,5 +1,6 @@
 package com.rdbb.zhiyu.core.data.repository
 
+import com.rdbb.zhiyu.core.data.SessionManager
 import com.rdbb.zhiyu.core.model.Comment
 import com.rdbb.zhiyu.core.model.CommentCreateRequest
 import com.rdbb.zhiyu.core.model.CommentLikeResult
@@ -15,8 +16,9 @@ import javax.inject.Singleton
 @Singleton
 class PostRepository @Inject constructor(
     private val api: ApiService,
+    private val session: SessionManager,
     json: Json
-) : BaseRepository(json) {
+) : BaseRepository(session, json) {
 
     suspend fun feed(
         sort: String? = null,

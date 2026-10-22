@@ -28,7 +28,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:model"))
     // 启动页读取登录态
-    implementation(project(":core:datastore"))
+    implementation(project(":core:data"))
     implementation(project(":core:util"))
 
     // 依赖注入

@@ -1,5 +1,6 @@
 package com.rdbb.zhiyu.core.data.repository
 
+import com.rdbb.zhiyu.core.data.SessionManager
 import com.rdbb.zhiyu.core.model.Community
 import com.rdbb.zhiyu.core.model.PageData
 import com.rdbb.zhiyu.core.model.Post
@@ -13,8 +14,9 @@ import javax.inject.Singleton
 @Singleton
 class SearchRepository @Inject constructor(
     private val api: ApiService,
+    private val session: SessionManager,
     json: Json
-) : BaseRepository(json) {
+) : BaseRepository(session, json) {
 
     suspend fun searchAll(q: String): Result<SearchAllResult> =
         safeCall { api.searchAll(q.trim()) }

@@ -1,6 +1,6 @@
 package com.rdbb.zhiyu.core.data.repository
 
-import com.rdbb.zhiyu.core.datastore.UserManager
+import com.rdbb.zhiyu.core.data.SessionManager
 import com.rdbb.zhiyu.core.model.PageData
 import com.rdbb.zhiyu.core.model.PasswordUpdateRequest
 import com.rdbb.zhiyu.core.model.Post
@@ -15,9 +15,9 @@ import javax.inject.Singleton
 @Singleton
 class UserRepository @Inject constructor(
     private val api: ApiService,
-    private val userManager: UserManager,
+    private val session: SessionManager,
     json: Json
-) : BaseRepository(json) {
+) : BaseRepository(session, json) {
 
     suspend fun updateMe(
         nickname: String?,
@@ -26,7 +26,7 @@ class UserRepository @Inject constructor(
         avatar: String?
     ): Result<UserBrief> {
         val result = safeCall { api.updateMe(UserUpdateRequest(nickname, avatar, bio, gender)) }
-        result.getOrNull()?.let { userManager.updateUser(it) }
+        result.getOrNull()?.let { session.updateUser(it) }
         return result
     }
 

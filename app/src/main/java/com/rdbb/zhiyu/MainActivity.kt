@@ -4,16 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
-import androidx.navigation.compose.rememberNavController
+import com.rdbb.zhiyu.core.ui.components.AppDensityProvider
+import com.rdbb.zhiyu.core.ui.components.StatusBarIconStyle
+import com.rdbb.zhiyu.core.ui.theme.ZhiYuTheme
 import com.rdbb.zhiyu.navigation.AppNavHost
 import dagger.hilt.android.AndroidEntryPoint
-import com.rdbb.zhiyu.core.ui.theme.ZhiYuTheme
-import com.rdbb.zhiyu.core.ui.components.AppDensityProvider
-
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -21,17 +16,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val navController = rememberNavController()
-            AppDensityProvider() {
+            AppDensityProvider {
                 ZhiYuTheme {
-                    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                        AppNavHost(
-                            navController = navController,
-                            modifier = Modifier.padding(innerPadding)
-                        )}
+                    StatusBarIconStyle(lightIcons = false)
+                    AppNavHost()
                 }
             }
-
         }
     }
 }
